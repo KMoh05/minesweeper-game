@@ -66,12 +66,15 @@ render();
 function discoverCell(row, col) {
   cells[row][col].discovered = true;
 
-
   //
   // TODO: Task 6 - Discover neighbor cells recursively, as long as there are no adjacent bombs to the current cell.
   //
-cells[row][col].defeat = true;
-
+countAdjacentBombs(row, col);{}
+if (cells[row][col].isBomb) {
+  defeat = true;
+  victory = false;
+  return;
+}
 
   //
   // TODO: Task 8 - Implement defeat. If the player "discovers" a bomb (clicks on it without holding shift), set the variable defeat to true.
@@ -108,6 +111,7 @@ function countAdjacentBombs(row, col) {
   return bombCount;
 }
 function getBombsCount() {
+
   //
   // TODO: Task 9 - Implement stats: the counters currently always display 0, calculate and return the relevant values.
   //
@@ -129,10 +133,13 @@ function getTotalCellsToClear() {
 }
 
 function checkForVictory() {
+
   //
   // TODO: Task 10 - Implement victory. If the player has revealed as many cells as they must (every cell that isn't a
   //                 bomb), set variable victory to true.
   //
+  if(flagCell == BOMBS_COUNT){
+    victory = true;}
   return 0;
 }
 
