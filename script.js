@@ -79,6 +79,10 @@ if (cells[row][col].isBomb) {
   //
   // TODO: Task 8 - Implement defeat. If the player "discovers" a bomb (clicks on it without holding shift), set the variable defeat to true.
   //
+  document.getElementById("bombs-count").innerText = getBombsCount().toString();
+  document.getElementById("cleared-cells-count").innerText = getClearedCells().toString();
+  document.getElementById("total-cells-to-clear").innerText = getTotalCellsToClear().toString();
+  return;
 }
 
 function flagCell(row, col) {
@@ -115,6 +119,7 @@ function getBombsCount() {
   //
   // TODO: Task 9 - Implement stats: the counters currently always display 0, calculate and return the relevant values.
   //
+  
   return 0;
 }
 
