@@ -31,11 +31,26 @@ for (var row = 0; row < ROWS_COUNT; row++) {
 // cells[5][4].isBomb = true;
 // cells[9][9].isBomb = true;
 
+
 //
 // TODO: Task 2 - Comment out the code of task 1. Instead of adding bombs in fixed places, add 10 of them in random places.
 //                Add a BOMBS_COUNT constant so that you can easily change the amount of bombs placed. Put it next to the
 //                other constants.
 //
+
+
+// Add a constant for the number of bombs
+const BOMBS_COUNT = 10;
+
+// Place bombs at random positions
+for (let i = 0; i < BOMBS_COUNT; i++) {
+  let row, col;
+  do {
+    row = Math.floor(Math.random() * ROWS_COUNT);
+    col = Math.floor(Math.random() * COLS_COUNT);
+  } while (cells[row][col].isBomb);
+  cells[row][col].isBomb = true;
+}
 
 
 // Once the game has been initialized, we "render" it.
@@ -46,10 +61,22 @@ render();
 // Game functions definitions
 //
 
+
+
 function discoverCell(row, col) {
+
+ 
   //
   // TODO: Task 5 - Reveal cells when clicked.
   //
+
+  onclick = function() {
+    if (cells[row][col].isBomb) {
+      defeat = true;
+    }
+  }
+
+
 
   //
   // TODO: Task 6 - Discover neighbor cells recursively, as long as there are no adjacent bombs to the current cell.
@@ -70,13 +97,23 @@ function flagCell(row, col) {
 // This function is called once for each cell when rendering the game. The row and col of the current cell is
 // passed to the functionn
 function countAdjacentBombs(row, col) {
-  //
-  // TODO: Task 4 - Adjacent bombs are bombs in cells touching our cell (also diagonally). Implement this function
-  //                so that it returns the count of adjacent cells with bombs in them. 
-  //
-  return 1;
-}
+  let bombCount = 0;
 
+  for (let i = Math.max(row - 1, 0); i <= Math.min(row + 1, ROWS_COUNT - 1); i++) {
+    for (let j = Math.max(col - 1, 0); j <= Math.min(col + 1, COLS_COUNT - 1); j++) {
+      if (cells[i][j].isBomb) {
+        bombCount++;
+      }
+    }
+  }
+
+  // Subtract 1 if the cell itself is a bomb
+  if (cells[row][col].isBomb) {
+    bombCount--;
+  }
+
+  return bombCount;
+}
 function getBombsCount() {
   //
   // TODO: Task 9 - Implement stats: the counters currently always display 0, calculate and return the relevant values.
@@ -190,3 +227,4 @@ function onCellClicked(row, col, event) {
   checkForVictory();
   render();
 }
+
